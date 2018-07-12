@@ -22,7 +22,7 @@ To install the plugin, follow these instructions.
 
 In short: generate a bunch of images in different widths, throw them together in a `srcset` attribute, set a `sizes` attribute and let the browser handle the rest.
 
-It generates images for these widths: 256px, 384px, 512px, 768px 1024px, 1280px, 1536px, 1760px, 2560px.
+It generates images for these widths: 256px, 384px, 512px, 768px, 1024px, 1280px, 1536px, 1760px, 2560px.
 
 ### Features
 
@@ -53,5 +53,5 @@ For usage with Image fields:
 There is also a filter for HTML strings & Redactor fields:
 
 ```twig
-{{ entry.story | responsiveImages({ aspectRatio: 21/9, sizes: '50vw'}) }}
+{{ entry.story|responsiveImages({ aspectRatio: 21/9, sizes: '50vw'}) }}
 ```
