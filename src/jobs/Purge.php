@@ -62,7 +62,7 @@ class Purge extends BaseJob
      *
      * @param \craft\queue\Queue $queue
      */
-    public function execute(\craft\queue\Queue $queue)
+    public function execute($queue)
     {
         $settings = ResponsiveImages::$plugin->getSettings()->volumes[$this->image->volume->id];
 
