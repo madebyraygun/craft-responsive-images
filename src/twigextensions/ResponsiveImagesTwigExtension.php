@@ -186,6 +186,10 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
                 }
 
                 $transformer = 'imgix';
+
+                if (isset($options['imgix'])) {
+                    $params['imgix'] = $options['imgix'];
+                }
             }
 
             $url = $this->generateImageURL($image, $params, $transformer);
@@ -222,7 +226,7 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
 
     public function generateImageURLWithImgix(craft\elements\Asset $image, array $params) : string
     {
-        $mapped = array();
+        $mapped = !empty($params['imgix']) && is_array($params['imgix']) ? $params['imgix'] : array();
 
         if ($params['mode'] === 'fit') {
             $mapped['fit'] = 'clip';
