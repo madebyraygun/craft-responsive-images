@@ -1,0 +1,43 @@
+{
+    "name": "gentsagency/craft-responsive-images",
+    "description": "Responsive Images",
+    "type": "craft-plugin",
+    "version": "0.0.1",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "responsive images"
+    ],
+    "support": {
+        "docs": "https://github.com/gentsagency/craft-responsive-images/blob/master/README.md",
+        "issues": "https://github.com/gentsagency/craft-responsive-images/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pieter Beulque",
+            "homepage": "https://github.com/pieterbeulque"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0-RC1"
+    },
+    "autoload": {
+        "psr-4": {
+          "gentsagency\\responsiveimages\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Responsive Images",
+        "handle": "responsive-images",
+        "hasCpSettings": true,
+        "hasCpSection": false,
+        "changelogUrl": "https://raw.githubusercontent.com/gentsagency/craft-responsive-images/master/CHANGELOG.md",
+        "components": {
+            "responsiveImagesService": "gentsagency\\responsiveimages\\services\\ResponsiveImagesService"
+        },
+        "class": "gentsagency\\responsiveimages\\ResponsiveImages"
+    }
+}

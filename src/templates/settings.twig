@@ -1,0 +1,56 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Responsive Images plugin for Craft CMS 3.x
+ *
+ * Responsive Images Settings.twig
+ *
+ * @author    Pieter Beulque
+ * @copyright Copyright (c) 2018 Pieter Beulque
+ * @package   ResponsiveImages
+ * @since     0.0.1
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% for volume in volumes %}
+    <div style="margin-bottom: 3rem">
+        <h2>
+            {{ volume.volume.name }} ({{ volume.volume.displayName }})
+        </h2>
+
+        {% if volume.type == 'local' %}
+            <p>
+                imgix is not supported in front of local folders.<br>
+                The main reason for this is that imgix won&rsquo;t be able to connect to your assets in local development.
+            </p>
+        {% elseif volume.type == 's3' %}
+            {% set values = [] %}
+
+            {{ forms.textField({
+                label: 'imgix Domain',
+                instructions: 'The domain that imgix is running on. Leave empty to disable imgix.',
+                id: 'imgix-domain',
+                name: 'volumes[' ~ volume.volume.id ~ ']' ~ '[imgix][domain]',
+                value: settings.volumes[volume.volume.id].imgix.domain})
+            }}
+
+            {{ forms.passwordField({
+                label: 'imgix API Key',
+                instructions: 'Your imgix API key will be used to purge images. Leave empty to disable purging.',
+                id: 'imgix-api-key',
+                name: 'volumes[' ~ volume.volume.id ~ ']' ~ '[imgix][apiKey]',
+                value: settings.volumes[volume.volume.id].imgix.apiKey})
+            }}
+
+            {{ forms.passwordField({
+                label: 'imgix Secure URL Token',
+                instructions: 'The token that can be used to sign a secure URL. Leave empty to disable URL signing (this will only work if you also disable Secure URLs in the imgix dashboard).',
+                id: 'imgix-secure-token',
+                name: 'volumes[' ~ volume.volume.id ~ ']' ~ '[imgix][signKey]',
+                value: settings.volumes[volume.volume.id].imgix.signKey})
+            }}
+        {% endif %}
+    </div>
+{% endfor %}
