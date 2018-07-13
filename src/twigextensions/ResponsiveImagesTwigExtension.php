@@ -242,7 +242,7 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
             $mapped['h'] = $params['height'];
         }
 
-        $mapped['ch'] = 'DPR,Save-Data';
+        $mapped['ch'] = 'Save-Data';
         $mapped['auto'] = 'format,compress';
 
         return $this->imgixBuilders[$image->volume->id]->createURL($image->getPath(), $mapped);
