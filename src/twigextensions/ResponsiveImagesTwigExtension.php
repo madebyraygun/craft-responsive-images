@@ -242,6 +242,7 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
             $mapped['h'] = $params['height'];
         }
 
+        $mapped['q'] = $params['quality'];
         $mapped['ch'] = 'Save-Data';
         $mapped['auto'] = 'format,compress';
 
