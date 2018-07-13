@@ -50,6 +50,8 @@ For usage with Image fields:
 <img src="{{ image.src }}" srcset="{{ image.srcset }}" sizes="100vw">
 ```
 
+You can pass a width to `{{ img.src(640) }}` to change what size will be used as the fallback `src`. This might come in handy if you want to support IE11 and below without serving them blurry images. 
+
 There is also a filter for HTML strings & Redactor fields:
 
 ```twig
