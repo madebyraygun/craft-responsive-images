@@ -148,8 +148,7 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
 
         $widths = $settings->widths;
 
-        $src = null;
-        $srcset = array();
+        $responsiveImage = new ResponsiveImage();
 
         foreach ($widths as $width) {
             $params = array(
@@ -194,18 +193,8 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
 
             $url = $this->generateImageURL($image, $params, $transformer);
 
-            $srcset[] = $url . ' ' . $width . 'w';
-
-            if (!$src) {
-                $src = $url;
-            }
+            $responsiveImage->addSource($width, $url);
         }
-
-        $srcset = join(',', $srcset);
-
-        $responsiveImage = new ResponsiveImage();
-        $responsiveImage->src = $src;
-        $responsiveImage->srcset = $srcset;
 
         return $responsiveImage;
     }

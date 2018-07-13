@@ -18,17 +18,53 @@ namespace gentsagency\responsiveimages\models;
  */
 class ResponsiveImage extends \craft\base\Model
 {
-    /**
-     * The <img> src attribute
-     *
-     * @var string
-     */
-    public $src;
+    private $sources = array();
 
-    /**
-     * The <img> srcset attribute
-     *
-     * @var string
-     */
-    public $srcset;
+    public function addSource(int $width, string $source)
+    {
+        $this->sources[$width] = $source;
+        return $source;
+    }
+
+    public function __get($name)
+    {
+        if ($name === 'src') {
+            return $this->src();
+        }
+
+        if ($name === 'srcset') {
+            return $this->srcset();
+        }
+    }
+
+    public function src(int $width = 0) : string
+    {
+        ksort($this->sources);
+
+        $bigEnough = array_filter($this->sources, function ($w) use ($width) {
+            return $w >= $width;
+        }, ARRAY_FILTER_USE_KEY);
+
+        if (count($bigEnough) > 0) {
+            return array_shift($bigEnough);
+        }
+
+        $sizes = array_keys($this->sources);
+        $biggest = array_pop($sizes);
+
+        return $this->sources[$biggest];
+    }
+
+    public function srcset() : string
+    {
+        ksort($this->sources);
+
+        $srcset = [];
+
+        foreach ($this->sources as $width => $src) {
+            $srcset[] = $src . ' ' . $width . 'w';
+        }
+
+        return join(',', $srcset);
+    }
 }
