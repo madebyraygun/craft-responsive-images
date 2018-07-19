@@ -254,11 +254,6 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
         $mapped['q'] = $params['quality'];
         $mapped['ch'] = 'Save-Data';
         $mapped['auto'] = 'format,compress';
-        $mapped['txt'] = $mapped['w'];
-        $mapped['txtsize'] = 64;
-        $mapped['txtalign'] = 'middle,center';
-        $mapped['txtfont'] = 'Futura Condensed Medium';
-        $mapped['txtclr'] = 'ffffff';
 
         return $this->imgixBuilders[$image->volume->id]->createURL($image->getPath(), $mapped);
     }
