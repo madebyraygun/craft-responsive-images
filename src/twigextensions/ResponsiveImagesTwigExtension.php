@@ -148,6 +148,15 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
 
         $widths = $settings->widths;
 
+        if (!empty($options['widths'])) {
+            $widths = array_unique(array_reduce($options['widths'], function ($carry, $width) {
+                array_push($carry, $width, $width * 2, $width * 3);
+                return $carry;
+            }, array()), SORT_NUMERIC);
+
+            sort($widths);
+        }
+
         $responsiveImage = new ResponsiveImage();
 
         foreach ($widths as $width) {
@@ -245,6 +254,11 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
         $mapped['q'] = $params['quality'];
         $mapped['ch'] = 'Save-Data';
         $mapped['auto'] = 'format,compress';
+        $mapped['txt'] = $mapped['w'];
+        $mapped['txtsize'] = 64;
+        $mapped['txtalign'] = 'middle,center';
+        $mapped['txtfont'] = 'Futura Condensed Medium';
+        $mapped['txtclr'] = 'ffffff';
 
         return $this->imgixBuilders[$image->volume->id]->createURL($image->getPath(), $mapped);
     }
