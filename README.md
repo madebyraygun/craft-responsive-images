@@ -1,5 +1,7 @@
 ![Craft Responsive Images](resources/img/plugin-logo.png)
 
+[![Build Status](https://travis-ci.com/gentsagency/craft-responsive-images.svg?branch=master)](https://travis-ci.com/gentsagency/craft-responsive-images)
+
 ## Requirements
 
 This plugin requires Craft CMS 3.0.0-beta.23 or later.
