@@ -16,9 +16,11 @@ use craft\base\Plugin;
 use craft\events\ElementEvent;
 use craft\events\ReplaceAssetEvent;
 use craft\events\PluginEvent;
+use craft\events\VolumeEvent;
 use craft\services\Assets;
 use craft\services\Elements;
 use craft\services\Plugins;
+use craft\services\Volumes;
 
 use yii\base\Event;
 
@@ -67,7 +69,7 @@ class ResponsiveImages extends Plugin
         // Add in our Twig extensions
         Craft::$app->view->registerTwigExtension(new ResponsiveImagesTwigExtension());
 
-        // Configure hooks
+        // Configure events
         Event::on(
             Elements::class,
             Elements::EVENT_BEFORE_SAVE_ELEMENT,
@@ -87,8 +89,8 @@ class ResponsiveImages extends Plugin
         );
 
         Event::on(
-            Assets::class,
-            Assets::EVENT_AFTER_SAVE_VOLUME,
+            Volumes::class,
+            Volumes::EVENT_AFTER_SAVE_VOLUME,
             function (ReplaceAssetEvent $event) {
                 $volume = $event->volume;
                 $settings = $this->getSettings();
@@ -106,8 +108,8 @@ class ResponsiveImages extends Plugin
         );
 
         Event::on(
-            Assets::class,
-            Assets::EVENT_AFTER_DELETE_VOLUME,
+            Volumes::class,
+            Volumes::EVENT_AFTER_DELETE_VOLUME,
             function (ReplaceAssetEvent $event) {
                 $volume = $event->volume;
                 $settings = $this->getSettings();
