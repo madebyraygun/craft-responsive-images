@@ -85,6 +85,38 @@ class ResponsiveImages extends Plugin
                 ResponsiveImages::$plugin->responsiveImagesService->queuePurge($event->asset);
             }
         );
+
+        Event::on(
+            Assets::class,
+            Assets::EVENT_AFTER_SAVE_VOLUME,
+            function (ReplaceAssetEvent $event) {
+                $volume = $event->volume;
+                $settings = $this->getSettings();
+
+                if (!isset($settings->volumes[$volume->id])) {
+                    $settings->volumes[$volume->id] = array(
+                        'imgix' => array(
+                            'domain' => null,
+                            'apiKey' => null,
+                            'signKey' => null,
+                        )
+                    );
+                }
+            }
+        );
+
+        Event::on(
+            Assets::class,
+            Assets::EVENT_AFTER_DELETE_VOLUME,
+            function (ReplaceAssetEvent $event) {
+                $volume = $event->volume;
+                $settings = $this->getSettings();
+
+                if (isset($settings->volumes[$volume->id])) {
+                    unset($settings->volumes[$volume->id]);
+                }
+            }
+        );
     }
 
     /**
