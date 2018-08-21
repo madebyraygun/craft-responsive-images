@@ -31,7 +31,7 @@ class ResponsiveImagesService extends Component
      */
     public function queuePurge(\craft\elements\Asset $image) : bool
     {
-        $volume = ResponsiveImages::$plugin->getSettings()->volumes[$image->volume->id];
+        $volume = ResponsiveImages::$plugin->getSettings()->volumes[$image->volume->id] ?? null;
 
         if (!empty($volume) && !empty($volume['imgix']) && !empty($volume['imgix']['domain'])) {
             Craft::$app->getQueue()->push(new PurgeJob([
