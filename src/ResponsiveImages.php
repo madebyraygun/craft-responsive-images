@@ -175,4 +175,35 @@ class ResponsiveImages extends Plugin
             ]
         );
     }
+
+    public function onAfterInstall()
+    {
+        $volumes = Craft::$app->getVolumes()->getAllVolumes();
+
+        foreach ($volumes as &$volume) {
+            $type = 'local';
+
+            if ($volume instanceof craft\awss3\Volume) {
+                $type = 's3';
+            }
+
+            $mapped[] = array(
+                'type' => $type,
+                'volume' => $volume,
+            );
+
+            if (!isset($settings->volumes[$volume->id])) {
+                $settings->volumes[$volume->id] = [];
+            }
+
+            if (!isset($settings->volumes[$volume->id]['imgix'])) {
+                $settings->volumes[$volume->id]['imgix'] = array(
+                    'domain' => null,
+                    'apiKey' => null,
+                    'signKey' => null,
+                );
+            }
+        }
+    }
+
 }
