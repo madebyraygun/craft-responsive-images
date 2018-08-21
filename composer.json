@@ -40,5 +40,8 @@
             "responsiveImagesService": "gentsagency\\responsiveimages\\services\\ResponsiveImagesService"
         },
         "class": "gentsagency\\responsiveimages\\ResponsiveImages"
+    },
+    "require-dev": {
+        "codeception/codeception": "^2.4"
     }
 }
