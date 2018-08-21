@@ -35,7 +35,7 @@ class ResponsiveImagesService extends Component
 
         if (!empty($volume) && !empty($volume['imgix']) && !empty($volume['imgix']['domain'])) {
             Craft::$app->getQueue()->push(new PurgeJob([
-                'image' => $image,
+                'image' => $image->id,
                 'description' => 'Purge image: ' . $image->getPath(),
             ]));
 

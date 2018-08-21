@@ -48,9 +48,9 @@ class Purge extends BaseJob
     // =========================================================================
 
     /**
-     * Some attribute
+     * The image ID that will be purged
      *
-     * @var string
+     * @var int
      */
     public $image;
 
@@ -64,13 +64,15 @@ class Purge extends BaseJob
      */
     public function execute($queue)
     {
-        $settings = ResponsiveImages::$plugin->getSettings()->volumes[$this->image->volume->id] ?? null;
+        $image = \craft\elements\Asset::find()->id($this->image)->one() ?? null;
+
+        $settings = ResponsiveImages::$plugin->getSettings()->volumes[$image->volume->id] ?? null;
 
         if (empty($settings['imgix']) || empty($settings['imgix']['apiKey'])) {
             return false;
         }
         $apiKey = $settings['imgix']['apiKey'];
-        $url = 'https://' . $settings['imgix']['domain'] . '/' . $this->image->getPath();
+        $url = 'https://' . $settings['imgix']['domain'] . '/' . $image->getPath();
 
         Craft::trace(
             $url,
