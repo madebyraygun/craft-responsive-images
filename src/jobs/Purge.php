@@ -64,7 +64,7 @@ class Purge extends BaseJob
      */
     public function execute($queue)
     {
-        $settings = ResponsiveImages::$plugin->getSettings()->volumes[$this->image->volume->id];
+        $settings = ResponsiveImages::$plugin->getSettings()->volumes[$this->image->volume->id] ?? null;
 
         if (empty($settings['imgix']) || empty($settings['imgix']['apiKey'])) {
             return false;
