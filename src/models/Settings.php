@@ -31,4 +31,11 @@ class Settings extends \craft\base\Model
      * @var int[]
      */
     public $widths = array(256, 384, 512, 768, 1024, 1280, 1536, 1760, 2560);
+
+    /**
+     * Allowed mimeTypes
+     *
+     * @var string[]
+     */
+    public $mimeTypes = array('image/jpeg', 'image/gif', 'image/png');
 }

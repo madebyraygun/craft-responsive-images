@@ -74,8 +74,12 @@ class ResponsiveImages extends Plugin
             Elements::class,
             Elements::EVENT_BEFORE_SAVE_ELEMENT,
             function (ElementEvent $event) {
+                $settings = $this->getSettings();
+
                 if ($event->element instanceof \craft\elements\Asset && !$event->isNew) {
-                    ResponsiveImages::$plugin->responsiveImagesService->queuePurge($event->element);
+                    if (in_array($event->element->getMimeType(), $settings->mimeTypes)) {
+                        ResponsiveImages::$plugin->responsiveImagesService->queuePurge($event->element);
+                    }
                 }
             }
         );
@@ -84,7 +88,11 @@ class ResponsiveImages extends Plugin
             Assets::class,
             Assets::EVENT_BEFORE_REPLACE_ASSET,
             function (ReplaceAssetEvent $event) {
-                ResponsiveImages::$plugin->responsiveImagesService->queuePurge($event->asset);
+                $settings = $this->getSettings();
+
+                if (in_array($event->asset->getMimeType(), $settings->mimeTypes)) {
+                    ResponsiveImages::$plugin->responsiveImagesService->queuePurge($event->asset);
+                }
             }
         );
 
