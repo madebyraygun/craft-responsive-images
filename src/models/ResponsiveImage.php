@@ -18,7 +18,7 @@ namespace gentsagency\responsiveimages\models;
  */
 class ResponsiveImage extends \craft\base\Model
 {
-    public $orig;
+    public $asset;
 
     private $sources = array();
 
