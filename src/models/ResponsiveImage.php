@@ -18,6 +18,8 @@ namespace gentsagency\responsiveimages\models;
  */
 class ResponsiveImage extends \craft\base\Model
 {
+    public $orig;
+
     private $sources = array();
 
     public function addSource(int $width, string $source)

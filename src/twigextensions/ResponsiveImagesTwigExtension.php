@@ -205,6 +205,8 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
             $responsiveImage->addSource($width, $url);
         }
 
+        $responsiveImage->orig = $image;
+
         return $responsiveImage;
     }
 
