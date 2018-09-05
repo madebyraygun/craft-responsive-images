@@ -16,10 +16,8 @@ namespace gentsagency\responsiveimages\models;
  * @package   ResponsiveImages
  * @since     0.0.1
  */
-class ResponsiveImage extends \craft\base\Model
+class ResponsiveImage extends \craft\elements\Asset
 {
-    public $asset;
-
     private $sources = array();
 
     public function addSource(int $width, string $source)

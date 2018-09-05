@@ -158,6 +158,7 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
         }
 
         $responsiveImage = new ResponsiveImage();
+        $responsiveImage->setAttributes($image->attributes);
 
         foreach ($widths as $width) {
             $params = array(
@@ -204,8 +205,6 @@ class ResponsiveImagesTwigExtension extends \Twig_Extension
 
             $responsiveImage->addSource($width, $url);
         }
-
-        $responsiveImage->asset = $image;
 
         return $responsiveImage;
     }
